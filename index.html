@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&display=swap"
+        rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <link rel="stylesheet" href="weather.css">
+</head>
+
+<body>
+
+    <!-- Use class 'night' for night mode -->
+    <!-- Clouds -->
+    <div id="cloud1" class="cloud cloud1 hidden"></div>
+    <div id="cloud2" class="cloud cloud2 hidden"></div>
+
+    <!-- Visible Wind -->
+    <div id="wind1" class="wind wind1 hidden"></div>
+    <div id="wind2" class="wind wind2 hidden"></div>
+    <div id="wind3" class="wind wind3 hidden"></div>
+
+
+    <div id="star-container"></div>
+
+
+    <div class="container" id="content">
+        <h1 id="h1">WEATHER APP</h1>
+        <input type="text" id="cityInput" placeholder="Enter city name">
+        <button id="getWeather">Get Weather</button>
+        <h3 id="status"><span id="weather-condition"></span></h3>
+        <p id="weather">Loading...</p>
+        <p id=statuss></p>
+    </div>
+
+
+
+
+
+    <script src="script.js">
+
+    </script>
+</body>
+
+</html>

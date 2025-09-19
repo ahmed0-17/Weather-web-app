@@ -1,0 +1,575 @@
+   *,
+   *::before,
+   *::after {
+     box-sizing: border-box;
+   }
+
+   body,
+   html {
+     font-size: 16px;
+     margin: 0;
+     padding: 0;
+     height: 100vh;
+     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+     color: #f7f7f7;
+     overflow: hidden;
+     /* background: linear-gradient(#0d1836,rgb(29, 29, 45),rgb(75, 75, 141) ,rgb(3, 3, 66),#27185b); */
+     animation: backgroundShift 30s ease infinite alternate;
+     position: relative;
+     background: url('https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');
+
+     transition: background 2s ease-in-out;
+
+   }
+
+
+
+
+   /* Container for content */
+   .content {
+     position: relative;
+     z-index: 10;
+     text-align: center;
+     padding-top: 15vh;
+     user-select: none;
+   }
+
+   /* 
+
+
+   /* Weather heading style */
+   h1 {
+     font-weight: 700;
+     font-size: 3rem;
+     margin-bottom: 0.3em;
+     color: #e4f2ff;
+     text-shadow: 0 1px 2px rgba(255 255 255 / 0.7);
+   }
+
+   p {
+     font-size: 1.3rem;
+     color: #f5f7f9;
+     text-shadow: 0 1px 2px rgba(255 255 255 / 0.6);
+   }
+
+
+
+
+   .container {
+     z-index: 2;
+     /* margin: auto; */
+     position: absolute;
+     top: 8%;
+     left: 28%;
+     width: 600px;
+     height: 500px;
+     align-items: center;
+     justify-content: center;
+     display: flex;
+     flex-direction: column;
+     color: #ffffff;
+     background-color: rgba(red, green, blue, 0.1);
+     backdrop-filter: blur(2px);
+     border: 2px solid rgb(244, 246, 255);
+     border-radius: 10px;
+     box-shadow: 0px 0px 10px 0px black;
+     transition: all 0.3s ease;
+
+   }
+
+   #h1 {
+     color: #ffffff;
+     font-family: 'Times New Roman', Times, serif;
+     margin: 20px auto;
+     font-size: xx-large;
+     text-align: center;
+     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.7);
+
+   }
+
+
+
+   #weather-condition {
+     width: 100px;
+     height: 100px;
+     margin: auto;
+     animation: icon forwards ease-in-out 1s;
+     font-size: 2rem;
+     transition: all 0.3s ease;
+   }
+
+
+   @keyframes icon {
+     0% {
+       transform: scale(0);
+       opacity: 0;
+     }
+
+     50% {
+       transform: scale(1.5);
+       opacity: 0.5;
+     }
+
+     100% {
+       transform: scale(3);
+       opacity: 1;
+     }
+
+   }
+
+   .container input {
+     width: 18rem;
+     height: 2rem;
+     transition: all 0.3s ease;
+     border-radius: 15px;
+     margin: 20px auto;
+     text-align: center;
+
+   }
+
+   .container input:hover {
+     transform: translateY(-2px);
+   }
+
+   .container button {
+     height: 2rem;
+     margin-top: 30px;
+     transition: all 0.3s ease;
+     border-radius: 5px;
+     font-weight: bold;
+     background-color: #4caf50;
+     color: white;
+     border: none;
+     width: 100px;
+
+   }
+
+
+   .container button:hover {
+     cursor: pointer;
+     transform: translateY(2px);
+     background-color: #45a049;
+
+   }
+
+   #status {
+     transition: all 0.3s linear;
+     transform: scale3d(1.1, 1.1, 1);
+
+
+   }
+
+
+   #weather {
+     display: none;
+     margin: 0px auto;
+     font-family: "Merriweather", serif;
+     /* font-optical-sizing: auto; */
+     /* font-weight:weight; */
+     font-style: normal;
+     font-variation-settings:
+       "wdth" 100;
+
+   }
+
+
+
+   /* Container for stars */
+   #star-container {
+     position: fixed;
+     width: 100%;
+     height: 100%;
+     pointer-events: none;
+     /* so clicks pass through */
+     top: 0;
+     left: 0;
+     z-index: 0;
+   }
+
+   /* Each star */
+   .star {
+     position: absolute;
+     background: white;
+     border-radius: 50%;
+     opacity: 0.8;
+     animation-name: twinkle;
+     animation-iteration-count: infinite;
+     animation-timing-function: ease-in-out;
+   }
+
+   /* Twinkle animation */
+   @keyframes twinkle {
+
+     0%,
+     100% {
+       opacity: 0.8;
+       transform: scale(1);
+     }
+
+     50% {
+       opacity: 0.2;
+       transform: scale(1.2);
+     }
+   }
+
+
+
+
+   /* Container for falling broken stars */
+   .broken-star {
+     position: absolute;
+     width: 100vw;
+     height: 30px;
+     pointer-events: none;
+     top: 0;
+     left: 0;
+     animation-name: fall;
+     animation-timing-function: linear;
+     animation-fill-mode: forwards;
+   }
+
+   /* Each star piece shape */
+   .broken-star .star-piece {
+     position: absolute;
+     width: 20px;
+     height: 6px;
+     background: white;
+     clip-path: polygon(50% 0%,
+         61% 35%,
+         98% 35%,
+         68% 57%,
+         79% 91%,
+         50% 70%,
+         21% 91%,
+         32% 57%,
+         2% 35%,
+         39% 35%);
+     opacity: 0.9;
+     animation-name: break-apart;
+     animation-fill-mode: forwards;
+     animation-timing-function: ease;
+   }
+
+   /* Falling animation for star container */
+   @keyframes fall {
+     0% {
+       /* transform: translate(0, 100vh) rotate(0deg); */
+       opacity: 1;
+       top: 0px;
+     }
+
+     80% {
+       opacity: 1;
+
+     }
+
+     100% {
+       transform: translate(100vw, 120vh) rotate(-90deg);
+       opacity: 0;
+     }
+   }
+
+
+
+
+
+
+
+
+   /* Clouds */
+   .cloud {
+     position: absolute;
+     background: rgba(255, 255, 255, 0.8);
+     border-radius: 50%;
+     z-index: 10;
+     opacity: 0.8;
+   }
+
+   .cloud::before,
+   .cloud::after {
+     content: '';
+     position: absolute;
+     background: rgba(255, 255, 255, 0.8);
+     border-radius: 50%;
+   }
+
+   .cloud1 {
+     width: 200px;
+     height: 80px;
+     top: 50px;
+     left: -250px;
+     animation: cloud1Move 60s linear infinite;
+   }
+
+   .cloud1::before {
+     width: 120px;
+     height: 120px;
+     top: -30px;
+     left: 30px;
+   }
+
+   .cloud1::after {
+     width: 100px;
+     height: 100px;
+     top: 10px;
+     right: 30px;
+   }
+
+   .cloud2 {
+     width: 180px;
+     height: 70px;
+     top: 150px;
+     left: -300px;
+     opacity: 0.6;
+     animation: cloud2Move 80s linear infinite;
+   }
+
+   .cloud2::before {
+     width: 100px;
+     height: 100px;
+     top: -20px;
+     left: 20px;
+   }
+
+   .cloud2::after {
+     width: 80px;
+     height: 80px;
+     top: 5px;
+     right: 20px;
+   }
+
+   @keyframes cloud1Move {
+     0% {
+       transform: translateX(-250px) translateY(0);
+     }
+
+     50% {
+       transform: translateX(50vw) translateY(10px);
+     }
+
+     100% {
+       transform: translateX(100vw) translateY(0);
+     }
+   }
+
+   @keyframes cloud2Move {
+     0% {
+       transform: translateX(-300px) translateY(0);
+     }
+
+     50% {
+       transform: translateX(60vw) translateY(-10px);
+     }
+
+     100% {
+       transform: translateX(100vw) translateY(0);
+     }
+   }
+
+   /* Wind streaks */
+   .wind {
+     position: absolute;
+     width: 120px;
+     height: 2px;
+     background: rgba(255, 255, 255, 0.7);
+     border-radius: 1px;
+     top: 0;
+     left: -200px;
+     animation: windMove linear infinite;
+   }
+
+   .wind1 {
+     top: 100px;
+     animation-duration: 5s;
+   }
+
+   .wind2 {
+     top: 200px;
+     animation-duration: 6s;
+   }
+
+   .wind3 {
+     top: 250px;
+     animation-duration: 4s;
+   }
+
+   @keyframes windMove {
+     0% {
+       transform: translateX(-200px);
+       opacity: 0;
+     }
+
+     10% {
+       opacity: 1;
+     }
+
+     90% {
+       opacity: 1;
+     }
+
+     100% {
+       transform: translateX(100vw);
+       opacity: 0;
+     }
+   }
+
+   .hidden {
+     display: none;
+   }
+
+
+
+
+   @media (max-width: 1024px) {
+     .container {
+       width: 90%;
+       height: 70%;
+       top: 15%;
+       left: 5%;
+       padding: 20px;
+     }
+
+     .container input {
+       width: 600px;
+       height: 60px;
+       font-size: 2rem;
+     }
+
+     #h1 {
+       font-size: 4rem;
+       margin: 20px;
+       display: inline-block;
+       text-align: center;
+     }
+
+     .container button {
+       height: 60px;
+       width: 150px;
+       font-size: 1.4rem;
+     }
+
+
+
+     #weather-condition {
+       width: 80px;
+       height: 80px;
+     }
+
+     #weather-condition {
+       font-size: 3.5rem;
+     }
+   }
+
+
+   /*  */
+
+   @media (max-width: 600px) {
+
+     .container {
+       width: 90%;
+       height: 80%;
+       top: 10%;
+       left: 5%;
+       padding: 10px;
+     }
+
+     #h1 {
+       font-size: 2rem;
+
+     }
+
+     p {
+       font-size: 1rem;
+     }
+
+     /* 
+     .container {
+       width: 90%;
+       height: 60%;
+       top: 20%;
+       left: 5%;
+       padding: 10px;
+     } */
+
+     .container input {
+       width: 300px;
+       height: 40px;
+       font-size: 1rem;
+     }
+
+     #h1 {
+       /* font-size: 2.5rem; */
+       margin: 10px auto;
+       display: inline-block;
+       text-align: center;
+     }
+
+     .container button {
+       height: 40px;
+       width: 120px;
+       font-size: 1rem;
+     }
+
+
+
+     #weather-condition {
+       width: 20px;
+       height: 20px;
+       margin: 10px;
+     }
+
+     #weather-condition {
+       font-size: 2.5rem;
+       width: 80px;
+       height: 80px;
+     }
+   }
+
+   @media (max-width: 365px) {
+
+     .container {
+       width: 90%;
+       height: 60%;
+       top: 15%;
+       left: 5%;
+       padding: 10px;
+     }
+
+     .container input {
+       width: 250px;
+       height: 30px;
+       font-size: 1rem;
+     }
+
+     #h1 {
+       font-size: 1.2rem;
+       margin: 10px auto;
+       display: inline-block;
+       text-align: center;
+     }
+
+     .container button {
+       height: 25px;
+       width: 90px;
+       margin: 5px auto;
+       font-size: 0.8rem;
+     }
+
+
+     .container {
+       height: 75%;
+     }
+
+
+     #weather-condition {
+       font-size: 2rem;
+       width: 50px;
+       height: 50px;
+     }
+
+     p {
+       font-size: 0.8rem;
+     }
+
+
+   }
